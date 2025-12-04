@@ -36,3 +36,21 @@ async def create_user_api(
         email=user_create_request.email,
         created_at=str(datetime.now())
     )
+
+
+
+@router.post("/", response_model=UserResponse)
+async def create_user_api(
+        user_create_request: UserCreateRequest,
+):
+    user_service = UserService()
+    user_service.create_user(
+        name=user_create_request.name,
+        email=user_create_request.email
+    )
+    return UserResponse(
+        id=0,
+        name=user_create_request.name,
+        email=user_create_request.email,
+        created_at=str(datetime.now())
+    )
