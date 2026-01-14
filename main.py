@@ -1,9 +1,13 @@
 from fastapi import FastAPI
 from fastapi import Request, HTTPException
 from fastapi.responses import JSONResponse
+from loguru import logger
 from app.api.route.user_routers import router as user_router
 from app.exceptions import UserNotFoundError, EmailNotAllowedNameExistsError
+from app.logging import setup_logging
 
+setup_logging()
+logger.info("Application is starting...")
 app = FastAPI()
 
 
@@ -53,3 +57,4 @@ app.include_router(user_router)
 @app.get("/hello")
 def hello():
     return {"message": "Hello FastAPI!"}
+
